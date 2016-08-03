@@ -46,5 +46,5 @@ mkdir -p /usr/local/gridwiz/log
 mkdir -p /usr/local/gridwiz/config
 
 rpmbuild -ba ~/rpmbuild/SPECS/$packageName.spec
-rpm -Uvh ~/rpmbuild/RPMS/x86_64/$fullName-1.x86_64.rpm
+rpm -Uvh ~/rpmbuild/RPMS/x86_64/$fullName-$defaultRelease.x86_64.rpm
 
