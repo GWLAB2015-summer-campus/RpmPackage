@@ -1,0 +1,11 @@
+## PMS Controller Configuration ###
+
+###### BASE CONFIG #####
+base_path = "/usr/local/gwpms_controller"
+
+##### DB_CONFIG #####
+pms_db_address = "127.0.0.1"
+pms_db_port = "3306"
+pms_db_name = "pmsdb"
+pms_db_user_id = "pms"
+pms_db_user_pw = "pms"

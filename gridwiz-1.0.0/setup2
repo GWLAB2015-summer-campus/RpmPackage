@@ -1,0 +1,86 @@
+#!/bin/bash
+
+defaultPath="/usr/local/gwpms_controller" 
+defaultAddr="127.0.0.1"
+defaultPort=3306
+defaultName="pmsdb"
+defaultId="pms"
+defaultPw="pms"
+
+echo -e "### PMS Controller Configuration ###" > /usr/local/gridwiz/config/config.txt
+echo -e >> /usr/local/gridwiz/config/config.txt
+
+
+
+echo -e "#Base Config"
+echo -n "Base Path (default : $defaultPath) : "
+
+read basePath
+if [ -z $basePath ]
+then
+  basePath=$defaultPath
+fi
+
+
+echo -e "#Database Config"
+
+echo -e "Database Address (default : $defaultAddr) : "
+read dbAddr
+if [ -z $dbAddr ]
+then
+  dbAddr=$defaultAddr
+fi
+
+echo -e "Database Port (default : $defaultPort) : "
+read dbPort
+if [ -z $dbPort ]
+then
+  dbPort=$defaultPort
+fi
+
+echo -e "Database Name (default : $defaultName) : "
+read dbName
+if [ -z $dbName ]
+then
+  dbName=$defaultName
+fi
+
+echo -e "Database UserId (default : $defaultId) : "
+read dbId
+if [ -z $dbId ]
+then
+  dbId=$defaultId
+fi
+
+
+echo -e "Database UserPw (default : $defaultPw) : "
+read dbPw
+if [ -z $dbPw ]
+then
+  dbPw=$defaultPw
+fi
+
+
+echo -e "###### BASE CONFIG #####" >> /usr/local/gridwiz/config/config.txt
+
+echo -e base_path = \"$basePath\" >> /usr/local/gridwiz/config/config.txt
+
+echo -e >> /usr/local/gridwiz/config/config.txt
+
+
+echo -e "##### DB_CONFIG #####" >> /usr/local/gridwiz/config/config.txt
+
+echo -e pms_db_address = \"$dbAddr\" >> /usr/local/gridwiz/config/config.txt
+
+echo -e pms_db_port = \"$dbPort\" >> /usr/local/gridwiz/config/config.txt
+
+echo -e pms_db_name = \"$dbName\"  >> /usr/local/gridwiz/config/config.txt
+
+echo -e pms_db_user_id = \"$dbId\" >> /usr/local/gridwiz/config/config.txt
+
+echo -e pms_db_user_pw = \"$dbPw\" >> /usr/local/gridwiz/config/config.txt
+
+
+
+
+

@@ -1,74 +1,40 @@
 #!/bin/bash
+defaultName=gridwiz
+defaultVersion=1.0.0
 
-defaultPath="/usr/local/gwpms_controller" 
-defaultAddr="127.0.0.1"
-defaultPort=3306
-defaultName="pmsdb"
-defaultId="pms"
-defaultPw="pms"
+echo -e "### Rpm Package Config"
+echo -n "Package specFile Name(default : $defaultName) : "
+read packageName
 
-echo -e "### PMS Controller Configuration ###" > ./config.txt
-echo -e >> ./config.txt
-
-
-echo -e "#Base Config"
-echo -n "Base Path (default : $defaultPath) : "
-
-read basePath
-if [ -z $basePath ]
+if [ -z $packageName ]
 then
-  basePath=$defaultPath
+packageName=$defaultName
 fi
 
 
-echo -e "#Database Config"
+echo -n "Package specFIle Version(default : $defaultVersion) : "
+read packageVersion
 
-echo -e "Database Address (default : $defaultAddr) : "
-read dbAddr
-if [ -z $dbAddr ]
+if [ -z $packageVersion ]
 then
-  dbAddr=$defaultAddr
+packageVersion=$defaultVersion
 fi
 
-echo -e "Database Port (default : $defaultPort) : "
-read dbPort
-if [ -z $dbPort ]
-then
-  dbPort=$defaultPort
-fi
+fullName=$packageName'-'$packageVersion
+echo $fullName
 
-echo -e "Database Name (default : $defaultName) : "
-read dbName
-if [ -z $dbName ]
-then
-  dbName=$defaultName
-fi
+mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
 
-echo -e "Database UserId (default : $defaultId) : "
-read dbId
-if [ -z $dbId ]
-then
-  dbId=$defaultId
-fi
+tar czvf $fullName.tar.gz $fullName
 
+cp $packageName.spec rpmbuild/SPECS
+cp $fullName.tar.gz rpmbuild/SOURCES
 
-echo -e "Database UserPw (default : $defaultPw) : "
-read dbPw
-if [ -z $dbPw ]
-then
-  dbPw=$defaultPw
-fi
+mkdir -p /usr/local/gridwiz
+mkdir -p /usr/local/gridwiz/bin
+mkdir -p /usr/local/gridwiz/log
+mkdir -p /usr/local/gridwiz/config
 
-
-echo -e "###### BASE CONFIG #####" >> ./config.txt
-echo -e base_path = \"$basePath\" >> ./config.txt
-echo -e >> ./config.txt
-
-echo -e "##### DB_CONFIG #####" >> ./config.txt
-echo -e pms_db_address = \"$dbAddr\" >> ./config.txt
-echo -e pms_db_port = \"$dbPort\" >> ./config.txt
-echo -e pms_db_name = \"$dbName\"  >> ./config.txt
-echo -e pms_db_user_id = \"$dbId\" >> ./config.txt
-echo -e pms_db_user_pw = \"$dbPw\" >> ./config.txt
-
+rpmbuild -ba rpmbuild/SPECS/$packageName.spec
+rpm -Uvh rpmbuild/RPMS/x86_64/$fullName-1.el6.x86_64.rpm
 
