@@ -1,8 +1,16 @@
 Name: gridwiz
+###install script input
+
 Summary: gridwiz rpm
+
 Version: 1.0.0
+###install script input
+
 License: GPL
-Release: 1%{?dist}
+
+Release: 1
+###install script input
+
 Group: Testing
 Source: %{name}-%{version}.tar.gz
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
@@ -31,7 +39,7 @@ mkdir -p $RPM_BUILD_ROOT/usr/local/gridwiz
 mkdir -p $RPM_BUILD_ROOT/usr/local/gridwiz/bin
 mkdir -p $RPM_BUILD_ROOT/usr/local/gridwiz/config
 
-cp setup2 $RPM_BUILD_ROOT/usr/local/bin
+cp config $RPM_BUILD_ROOT/usr/local/bin
 cp config.txt $RPM_BUILD_ROOT/usr/local/gridwiz/config
 
 
@@ -41,12 +49,13 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 #%doc
-%attr(0755,root,root)/usr/local/bin/setup2
+%attr(0755,root,root)/usr/local/bin/config
 %attr(0755,root,root) /usr/local/gridwiz/config/config.txt
 
 %postun
-rm -rf /usr/local/bin/setup2
+rm -rf /usr/local/bin/config
 rm -rf /usr/local/gridwiz
+rm -rf ~/rpmbuild
 
 %changelog
 * Wed Aug 3 2016 <ghjf1278@naver.com>

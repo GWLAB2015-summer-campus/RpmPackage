@@ -1,6 +1,7 @@
 #!/bin/bash
 defaultName=gridwiz
 defaultVersion=1.0.0
+defaultRelease=1
 
 echo -e "### Rpm Package Config"
 echo -n "Package specFile Name(default : $defaultName) : "
@@ -20,21 +21,30 @@ then
 packageVersion=$defaultVersion
 fi
 
+echo -n "Pacakge specFIle Release(default : $defaultRelease) : "
+read packageRelease
+
+if [ -z $packageRelease ]
+then
+packageRelese=$defaultRelease
+fi
+
 fullName=$packageName'-'$packageVersion
 echo $fullName
 
-mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
+mkdir -p ~/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
+
 
 tar czvf $fullName.tar.gz $fullName
 
-cp $packageName.spec rpmbuild/SPECS
-cp $fullName.tar.gz rpmbuild/SOURCES
+cp $packageName.spec ~/rpmbuild/SPECS
+cp $fullName.tar.gz ~/rpmbuild/SOURCES
 
 mkdir -p /usr/local/gridwiz
 mkdir -p /usr/local/gridwiz/bin
 mkdir -p /usr/local/gridwiz/log
 mkdir -p /usr/local/gridwiz/config
 
-rpmbuild -ba rpmbuild/SPECS/$packageName.spec
-rpm -Uvh rpmbuild/RPMS/x86_64/$fullName-1.el6.x86_64.rpm
+rpmbuild -ba ~/rpmbuild/SPECS/$packageName.spec
+rpm -Uvh ~/rpmbuild/RPMS/x86_64/$fullName-1.x86_64.rpm
 

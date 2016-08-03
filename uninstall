@@ -1,0 +1,22 @@
+#!/bin/bash
+
+
+path=$(rpm -qa gridwiz)
+
+if [ -z $path ]
+then
+  echo -e "The Package was not Installed"
+  exit
+
+fi
+
+while true; do
+read -p "Uninstall Package [y/n] " ans
+
+case $ans in
+  [Yy]* ) rpm -e $path; echo "The Pacakge being Uninstalled"; break;;
+  [Nn]* ) exit;;
+  * ) echo -e "Press answer y or n";; 
+  esac
+done
+
