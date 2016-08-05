@@ -38,6 +38,53 @@ gridwiz : /usr/local/gridwiz/bin/
 * spec 파일은 Name Version Release만 수정 가능(수정시 스크립트 작동 안될 수 있음).
 * package디렉터리(gridwiz-1.0.0)의 이름은 spec파일 항목의 Name-Version 으로 이름지어야 함.
 * sh install 에서 입력받는 Name, Version Release는 spec파일의 항목과 일치해야 함.
-* root 계정이 아니면 Permission 문제가 있을 수 있음.
+* spec파일 Name(gridwiz) 변경 시 install, uninstall 에서 패키지 설치 검사 로직, default 변수 변경 해야함. 
+
+```
+path=$(rpm -qa gridwiz)
+
+defaultName=gridwiz
+```
+
+### 6. Package 설치 구조 변경
+#### gridwiz.spec 
+
+```
+mkdir -p $RPM_BUILD_ROOT/usr/local/bin
+mkdir -p $RPM_BUILD_ROOT/usr/local/gridwiz
+mkdir -p $RPM_BUILD_ROOT/usr/local/gridwiz/bin
+mkdir -p $RPM_BUILD_ROOT/usr/local/gridwiz/config
+
+cp gridwiz $RPM_BUILD_ROOT/usr/local/gridwiz/bin
+cp config $RPM_BUILD_ROOT/usr/local/bin
+cp config.txt $RPM_BUILD_ROOT/usr/local/gridwiz/config
+
+%attr(0755,root,root)/usr/local/bin/config
+%attr(0755,root,root) /usr/local/gridwiz/config/config.txt
+%attr(0755,root,root)/usr/local/gridwiz/bin/gridwiz
+
+%postun
+rm -rf /usr/local/bin/config
+rm -rf /usr/local/gridwiz
+rm -rf ~/rpmbuild
+
+```
+mkdir,cp 부분은 $RPM_BUILD_ROOT/ 뒤 부터 실제 저장될 경로로 지정
+
+cp는 package의 각 파일들이 어느 위치에 저장 될지 결정
+
+%attr 부분은 cp 부분과 경로가 동일해야함 ex) config 는 /usr/local/bin/config
+
+%postun 아래 부분은 package가 삭제되고 실행될 명령 위 경로에서 생성된 디렉터리나 파일들을 삭제 해주어야함 
+
+#### install
+
+```
+mkdir -p /usr/local/gridwiz
+mkdir -p /usr/local/gridwiz/bin
+mkdir -p /usr/local/gridwiz/log
+mkdir -p /usr/local/gridwiz/config
+```
+spec 파일 에서 변경된 경로와 동일하게 변경
 
 Q) ghjf1278@naver.com 
