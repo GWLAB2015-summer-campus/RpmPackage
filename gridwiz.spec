@@ -39,6 +39,8 @@ mkdir -p $RPM_BUILD_ROOT/usr/local/gridwiz
 mkdir -p $RPM_BUILD_ROOT/usr/local/gridwiz/bin
 mkdir -p $RPM_BUILD_ROOT/usr/local/gridwiz/config
 
+
+cp gridwiz $RPM_BUILD_ROOT/usr/local/gridwiz/bin
 cp config $RPM_BUILD_ROOT/usr/local/bin
 cp config.txt $RPM_BUILD_ROOT/usr/local/gridwiz/config
 
@@ -51,6 +53,7 @@ rm -rf $RPM_BUILD_ROOT
 #%doc
 %attr(0755,root,root)/usr/local/bin/config
 %attr(0755,root,root) /usr/local/gridwiz/config/config.txt
+%attr(0755,root,root)/usr/local/gridwiz/bin/gridwiz
 
 %postun
 rm -rf /usr/local/bin/config

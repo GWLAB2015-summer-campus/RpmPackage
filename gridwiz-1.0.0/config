@@ -24,28 +24,28 @@ fi
 
 echo -e "#Database Config"
 
-echo -e "Database Address (default : $defaultAddr) : "
+echo -n "Database Address (default : $defaultAddr) : "
 read dbAddr
 if [ -z $dbAddr ]
 then
   dbAddr=$defaultAddr
 fi
 
-echo -e "Database Port (default : $defaultPort) : "
+echo -n "Database Port (default : $defaultPort) : "
 read dbPort
 if [ -z $dbPort ]
 then
   dbPort=$defaultPort
 fi
 
-echo -e "Database Name (default : $defaultName) : "
+echo -n "Database Name (default : $defaultName) : "
 read dbName
 if [ -z $dbName ]
 then
   dbName=$defaultName
 fi
 
-echo -e "Database UserId (default : $defaultId) : "
+echo -n "Database UserId (default : $defaultId) : "
 read dbId
 if [ -z $dbId ]
 then
@@ -53,7 +53,7 @@ then
 fi
 
 
-echo -e "Database UserPw (default : $defaultPw) : "
+echo -n "Database UserPw (default : $defaultPw) : "
 read dbPw
 if [ -z $dbPw ]
 then
