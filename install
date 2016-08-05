@@ -1,4 +1,23 @@
 #!/bin/bash
+
+path=$(rpm -qa gridwiz)
+
+if [ -z $path ]
+then
+  echo -e
+else
+while true; do
+  read -p "Package already exist. Install new Package? [y/n] " ans
+  case $ans in
+  [Yy]* ) rpm -e $path; echo "Package was removed"; break;;
+  [Nn]* ) exit;;
+  * ) echo -e "Press answer y or n";; 
+  esac
+done
+
+
+fi
+
 defaultName=gridwiz
 defaultVersion=1.0.0
 defaultRelease=1
@@ -46,5 +65,5 @@ mkdir -p /usr/local/gridwiz/log
 mkdir -p /usr/local/gridwiz/config
 
 rpmbuild -ba ~/rpmbuild/SPECS/$packageName.spec
-rpm -Uvh ~/rpmbuild/RPMS/x86_64/$fullName-1.x86_64.rpm
+rpm -Uvh ~/rpmbuild/RPMS/x86_64/$fullName-$defaultRelease.x86_64.rpm
 
