@@ -35,6 +35,9 @@ config.txt : /usr/local/gridwiz/config/
 gridwiz : /usr/local/gridwiz/bin/
 ```
 ### 5. 주의사항
-* spec 파일은 Name Version Release만 수정 가능(스크립트 작동 안될수 있음).
+* spec 파일은 Name Version Release만 수정 가능(수정시 스크립트 작동 안될 수 있음).
 * package디렉터리(gridwiz-1.0.0)의 이름은 spec파일 항목의 Name-Version 으로 이름지어야 함.
 * sh install 에서 입력받는 Name, Version Release는 spec파일의 항목과 일치해야 함.
+* root 계정이 아니면 Permission 문제가 있을 수 있음.
+
+Q) ghjf1278@naver.com 
