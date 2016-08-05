@@ -1,7 +1,7 @@
-# RPM Package 생성 및 설치 
+# RPM Package
 
 ### 1. 구현 환경
-* CentOs 6.8
+* centOs 6.8
 
 ### 2. 파일, 디렉터리 설명
 * gridwiz.spec : RPM Package 생성을 위해 사용되는 spec 파일
@@ -16,7 +16,7 @@
 
 * install : RPM Package 생성과 설치를 하는 스크립트, 설치할 Package의 Name, Version, Release를 입력 받음
 
-* uinstall : RPM Package 삭제 스크립트
+* unistall : RPM Package 삭제 스크립트
 
 ### 3. 사용법 및 명령어
 
@@ -26,7 +26,7 @@
 
 * config : config.txt 설정 변경 (/usr/local/bin 에 있어 어느 경로에서든 사용가능)
 
-* RpmPackage/ 에서 install과 uninstall이 작동됨. 설치완료 된후 config를 이용하여 설정
+* RpmPackage/ 에서 install과 uninstall이 작동됨. 설치 완료후에 config를 이용하여 설정
 
 ### 4. Package 설치 경로
 ```
