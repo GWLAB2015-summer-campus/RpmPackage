@@ -1,14 +1,17 @@
 #!/bin/bash
 
 osId=$(lsb_release -i)
+osId=$(echo $osId | cut -d: -f2)
 
-if [ "$osId"=="CentOS" ]
+if [ $osId = CentOS ]
 then
 path=$(rpm -qa gridwiz)
 else
 path=$(dpkg --get-selections | grep gridwiz)
 path=${path%" "}
+echo $path
 fi
+
 
 if [ -z "$path" ]
 then
@@ -21,7 +24,7 @@ read -p "Uninstall Package [y/n] " ans
 
 case $ans in
   [Yy]* )
-  if [ "$osId"="CentOS" ]
+  if [ $osId = CentOS ]
   then
   rpm -e $path;
   else

@@ -1,21 +1,31 @@
 #!/bin/bash
 
-path=$(rpm -qa gridwiz)
+osId=$(lsb_release -i)
+osId=$(echo $osId | cut -d: -f2)
 
-if [ -z $path ]
+if [ $osId = CentOs ]
+then
+path=$(rpm -qa gridwiz)
+else
+path=$(dpkg --get-selections | grep gridwiz)
+echo $path
+path=${path%" "}
+
+fi
+
+
+if [ -z "$path" ]
 then
   echo "Install"
 else
-while true; do
-  read -p "Package already exist. Install new Package? [y/n] " ans
-  case $ans in
-  [Yy]* ) rpm -e $path; echo "Package was removed"; break;;
-  [Nn]* ) exit;;
-  * ) echo "Press answer y or n";; 
+  while true; do
+    read -p "Package already exist. Install new Package? [y/n] " ans
+    case $ans in
+    [Yy]* ) dpkg -r gridwiz; echo "Package was removed"; break;;
+    [Nn]* ) exit;;
+    * ) echo "Press answer y or n";; 
   esac
 done
-
-
 fi
 
 defaultName=gridwiz
@@ -71,12 +81,13 @@ sudo mkdir -p /usr/local/gridwiz/config
 
 rpmbuild -ba ~/rpmbuild/SPECS/$packageName.spec
 
-osId=$(lsb_release -i)
-echo $osId
 
-if [ "$osId"=="CentOS" ]
+
+if [ $osId = CentOS ]
 then
+  echo "CentOs Install"
   rpm -Uvh ~/rpmbuild/RPMS/x86_64/$fullName-$defaultRelease.x86_64.rpm
 else
+  echo "Ubuntu Install"
   sh install_debian
 fi
