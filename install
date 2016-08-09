@@ -1,5 +1,4 @@
 #!/bin/bash
-
 osId=$(lsb_release -i)
 osId=$(echo $osId | cut -d: -f2)
 
@@ -7,7 +6,7 @@ if [ $osId = CentOS ]
 then
 path=$(rpm -qa gridwiz)
 else
-path=$(dpkg --get-selections | grep gridwiz)h
+path=$(dpkg --get-selections | grep gridwiz)
 path=${path%" "}
 
 fi

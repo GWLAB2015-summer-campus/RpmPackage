@@ -28,21 +28,21 @@ gridwiz rpm package
 #make%{?_smp_mflags}
 
 %install
-rm -rf $RPM_BUILD_ROOT
+sudo rm -rf $RPM_BUILD_ROOT
 #make install DESTDIR=$RPM_BULLID_ROOT
-mkdir -p $RPM_BUILD_ROOT/usr/local/bin
-mkdir -p $RPM_BUILD_ROOT/usr/local/gridwiz
-mkdir -p $RPM_BUILD_ROOT/usr/local/gridwiz/bin
-mkdir -p $RPM_BUILD_ROOT/usr/local/gridwiz/config
+sudo mkdir -p $RPM_BUILD_ROOT/usr/local/bin
+sudo mkdir -p $RPM_BUILD_ROOT/usr/local/gridwiz
+sudo mkdir -p $RPM_BUILD_ROOT/usr/local/gridwiz/bin
+sudo mkdir -p $RPM_BUILD_ROOT/usr/local/gridwiz/config
 
 
-cp gridwiz $RPM_BUILD_ROOT/usr/local/gridwiz/bin
-cp config $RPM_BUILD_ROOT/usr/local/bin
-cp config.txt $RPM_BUILD_ROOT/usr/local/gridwiz/config
+sudo cp gridwiz $RPM_BUILD_ROOT/usr/local/gridwiz/bin
+sudo cp config $RPM_BUILD_ROOT/usr/local/bin
+sudo cp config.txt $RPM_BUILD_ROOT/usr/local/gridwiz/config
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+sudo rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)

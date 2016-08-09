@@ -9,7 +9,6 @@ path=$(rpm -qa gridwiz)
 else
 path=$(dpkg --get-selections | grep gridwiz)
 path=${path%" "}
-echo $path
 fi
 
 
