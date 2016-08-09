@@ -2,6 +2,8 @@
 
 ### 1. 구현 환경
 * centOs 6.8
+* ubuntu 16.04
+* centos, ubuntu 에서 패키지 생성 및 설치 
 
 ### 2. 파일, 디렉터리 설명
 * gridwiz.spec : RPM Package 생성을 위해 사용되는 spec 파일
@@ -15,6 +17,8 @@
   > gridwiz : 실행 파일..
 
 * install : RPM Package 생성과 설치를 하는 스크립트, 설치할 Package의 Name, Version, Release를 입력 받음
+
+* install_debian : debian 계열에서 설치하기 위한 스크립트 install에서 판단하여 실행
 
 * unistall : RPM Package 삭제 스크립트
 
@@ -39,6 +43,8 @@ gridwiz : /usr/local/gridwiz/bin/
 * package디렉터리(gridwiz-1.0.0)의 이름은 spec파일 항목의 Name-Version 으로 이름지어야 함.
 * sh install 에서 입력받는 Name, Version Release는 spec파일의 항목과 일치해야 함.
 * spec파일 Name(gridwiz) 변경 시 install, uninstall 에서 패키지 설치 검사 로직, default 변수 변경 해야함. 
+* permission 오류가 뜬다면 sudo sh install , sudo sh uninstall
+* install_debian 을 독립적으로 실행시키면 안됌.
 
 ```
 path=$(rpm -qa gridwiz)
@@ -63,10 +69,6 @@ cp config.txt $RPM_BUILD_ROOT/usr/local/gridwiz/config
 %attr(0755,root,root) /usr/local/gridwiz/config/config.txt
 %attr(0755,root,root)/usr/local/gridwiz/bin/gridwiz
 
-%postun
-rm -rf /usr/local/bin/config
-rm -rf /usr/local/gridwiz
-rm -rf ~/rpmbuild
 
 ```
 mkdir,cp 부분은 $RPM_BUILD_ROOT/ 뒤 부터 실제 저장될 경로로 지정
@@ -74,8 +76,6 @@ mkdir,cp 부분은 $RPM_BUILD_ROOT/ 뒤 부터 실제 저장될 경로로 지정
 cp는 package의 각 파일들이 어느 위치에 저장 될지 결정
 
 %attr 부분은 cp 부분과 경로가 동일해야함 ex) config 는 /usr/local/bin/config
-
-%postun 아래 부분은 package가 삭제되고 실행될 명령 위 경로에서 생성된 디렉터리나 파일들을 삭제 해주어야함 
 
 #### install
 
