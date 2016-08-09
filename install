@@ -3,16 +3,15 @@
 osId=$(lsb_release -i)
 osId=$(echo $osId | cut -d: -f2)
 
-if [ $osId = CentOs ]
+if [ $osId = CentOS ]
 then
 path=$(rpm -qa gridwiz)
 else
-path=$(dpkg --get-selections | grep gridwiz)
-echo $path
+path=$(dpkg --get-selections | grep gridwiz)h
 path=${path%" "}
 
 fi
-
+echo $path
 
 if [ -z "$path" ]
 then
@@ -21,7 +20,15 @@ else
   while true; do
     read -p "Package already exist. Install new Package? [y/n] " ans
     case $ans in
-    [Yy]* ) dpkg -r gridwiz; echo "Package was removed"; break;;
+    [Yy]* )
+    if [ $osId = CentOS ]
+    then
+      rpm -e $path
+    else
+      dpkg -r gridwiz;
+    fi
+    echo "Package was removed";
+    break;;
     [Nn]* ) exit;;
     * ) echo "Press answer y or n";; 
   esac
