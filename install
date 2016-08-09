@@ -74,7 +74,7 @@ rpmbuild -ba ~/rpmbuild/SPECS/$packageName.spec
 osId=$(lsb_release -i)
 echo $osId
 
-if [ "$osId" = "CentOs" ]
+if [ "$osId"=="CentOS" ]
 then
   rpm -Uvh ~/rpmbuild/RPMS/x86_64/$fullName-$defaultRelease.x86_64.rpm
 else

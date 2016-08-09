@@ -2,7 +2,7 @@
 
 osId=$(lsb_release -i)
 
-if [ "$osId" = "CentOs" ]
+if [ "$osId"=="CentOS" ]
 then
 path=$(rpm -qa gridwiz)
 else
@@ -21,7 +21,7 @@ read -p "Uninstall Package [y/n] " ans
 
 case $ans in
   [Yy]* )
-  if [ $osId = "CentOs" ]
+  if [ "$osId"="CentOS" ]
   then
   rpm -e $path;
   else
