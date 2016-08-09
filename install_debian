@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [ -d ~/rpmbuild_debian ]
+then
+  echo "Directoty exist"
+else
+ sudo apt-get install alien
+ sudo mkdir ~/rpmbuild_debian
+fi
+
+cd ~/rpmbuild/RPMS/x86_64
+rpmName=$(ls)
+rpmPath=$(pwd)
+
+cd ~/rpmbuild_debian
+sudo alien -k $rpmPath/$rpmName
+
+debName=$(ls)
+debPath=$(pwd)
+
+sudo dpkg -i $debPath/$debName
+
+
+

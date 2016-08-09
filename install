@@ -4,14 +4,14 @@ path=$(rpm -qa gridwiz)
 
 if [ -z $path ]
 then
-  echo -e
+  echo "Install"
 else
 while true; do
   read -p "Package already exist. Install new Package? [y/n] " ans
   case $ans in
   [Yy]* ) rpm -e $path; echo "Package was removed"; break;;
   [Nn]* ) exit;;
-  * ) echo -e "Press answer y or n";; 
+  * ) echo "Press answer y or n";; 
   esac
 done
 
@@ -22,7 +22,7 @@ defaultName=gridwiz
 defaultVersion=1.0.0
 defaultRelease=1
 
-echo -e "### Rpm Package Config"
+echo "### Rpm Package Config"
 echo -n "Package specFile Name(default : $defaultName) : "
 read packageName
 
@@ -51,19 +51,32 @@ fi
 fullName=$packageName'-'$packageVersion
 echo $fullName
 
-mkdir -p ~/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
+sudo mkdir -p ~/rpmbuild/BUILD
+sudo mkdir -p ~/rpmbuild/BUILDROOT
+sudo mkdir -p ~/rpmbuild/RPMS
+sudo mkdir -p ~/rpmbuild/SOURCES
+sudo mkdir -p ~/rpmbuild/SPECS
+sudo mkdir -p ~/rpmbuild/SRPMS
 
 
-tar czvf $fullName.tar.gz $fullName
+sudo tar czvf $fullName.tar.gz $fullName
 
-cp $packageName.spec ~/rpmbuild/SPECS
-cp $fullName.tar.gz ~/rpmbuild/SOURCES
+sudo cp $packageName.spec ~/rpmbuild/SPECS
+sudo cp $fullName.tar.gz ~/rpmbuild/SOURCES
 
-mkdir -p /usr/local/gridwiz
-mkdir -p /usr/local/gridwiz/bin
-mkdir -p /usr/local/gridwiz/log
-mkdir -p /usr/local/gridwiz/config
+sudo mkdir -p /usr/local/gridwiz
+sudo mkdir -p /usr/local/gridwiz/bin
+sudo mkdir -p /usr/local/gridwiz/log
+sudo mkdir -p /usr/local/gridwiz/config
 
 rpmbuild -ba ~/rpmbuild/SPECS/$packageName.spec
-rpm -Uvh ~/rpmbuild/RPMS/x86_64/$fullName-$defaultRelease.x86_64.rpm
 
+osId=$(lsb_release -i)
+echo $osId
+
+if [ "$osId" = "CentOs" ]
+then
+  rpm -Uvh ~/rpmbuild/RPMS/x86_64/$fullName-$defaultRelease.x86_64.rpm
+else
+  sh install_debian
+fi

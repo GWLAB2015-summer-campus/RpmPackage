@@ -15,10 +15,6 @@ Group: Testing
 Source: %{name}-%{version}.tar.gz
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
-BuildRequires: /bin/rm, /bin/mkdir, /bin/cp, /bin/sh
-Requires: /bin/bash, /bin/sh
-
-
 %description
 gridwiz rpm package
 
@@ -56,9 +52,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root)/usr/local/gridwiz/bin/gridwiz
 
 %postun
-rm -rf /usr/local/bin/config
-rm -rf /usr/local/gridwiz
-rm -rf ~/rpmbuild
 
 %changelog
 * Wed Aug 3 2016 <ghjf1278@naver.com>

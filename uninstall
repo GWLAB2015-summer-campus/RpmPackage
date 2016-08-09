@@ -1,22 +1,41 @@
 #!/bin/bash
 
+osId=$(lsb_release -i)
 
-path=$(rpm -qa gridwiz)
-
-if [ -z $path ]
+if [ "$osId" = "CentOs" ]
 then
-  echo -e "The Package does not exist."
-  exit
+path=$(rpm -qa gridwiz)
+else
+path=$(dpkg --get-selections | grep gridwiz)
+path=${path%" "}
+fi
 
+if [ -z "$path" ]
+then
+  echo "The Package does not exist."
+  exit
 fi
 
 while true; do
 read -p "Uninstall Package [y/n] " ans
 
 case $ans in
-  [Yy]* ) rpm -e $path; echo "The Pacakge was removed"; break;;
+  [Yy]* )
+  if [ $osId = "CentOs" ]
+  then
+  rpm -e $path;
+  else
+  dpkg -r $path
+  fi
+  rm -rf /usr/local/bin/config
+  rm -rf /usr/local/gridwiz
+  rm -rf ~/rpmbuild
+  rm -rf ~/rpmbuild_debian
+
+  echo "The Pacakge was removed";
+  break;;
   [Nn]* ) exit;;
-  * ) echo -e "Press answer y or n";; 
+  * ) echo "Press answer y or n";; 
   esac
 done
 
