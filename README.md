@@ -56,7 +56,7 @@ defaultName=gridwiz
 ### 6. 새로운 Package 생성 및 설치 구조 변경
 gridwiz.spec 에서 새로운 Package 이름과 버전 릴리스 입력, 새로운 설치 구조 변경
 gridwiz-1.0.0 디렉터리를 새로운 Package 이름과 버전으로 변경
-
+ 
 #### gridwiz.spec
 
 ```

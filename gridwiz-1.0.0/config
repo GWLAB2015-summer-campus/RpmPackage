@@ -7,6 +7,8 @@ defaultName="pmsdb"
 defaultId="pms"
 defaultPw="pms"
 
+sudo chmod 777 /usr/local/gridwiz/config/config.txt
+
 echo -e "### PMS Controller Configuration ###" > /usr/local/gridwiz/config/config.txt
 echo -e >> /usr/local/gridwiz/config/config.txt
 

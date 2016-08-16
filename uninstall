@@ -14,7 +14,7 @@ read packageName
 if [ -z $packageName ]
 then
 packageName=$defaultName
-fi
+fi 
 
 
 echo -n "Package specFile Version(default : $defaultVersion) : "

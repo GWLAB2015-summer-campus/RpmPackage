@@ -12,7 +12,7 @@ read packageName
 
 if [ -z $packageName ]
 then
-packageName=$defaultName
+packageName=$defaultName 
 fi
 
 
