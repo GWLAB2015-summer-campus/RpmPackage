@@ -6,9 +6,13 @@ defaultPort=3306
 defaultName="pmsdb"
 defaultId="pms"
 defaultPw="pms"
+<<<<<<< HEAD
 
 sudo chmod 777 /usr/local/gridwiz/config/config.txt
 
+=======
+sudo chmod 777 /usr/local/gridwiz/config/config.txt
+>>>>>>> origin/master
 echo -e "### PMS Controller Configuration ###" > /usr/local/gridwiz/config/config.txt
 echo -e >> /usr/local/gridwiz/config/config.txt
 
