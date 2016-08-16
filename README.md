@@ -56,7 +56,7 @@ defaultName=gridwiz
 ### 6. 새로운 Package 생성 및 설치 구조 변경
 gridwiz.spec 에서 새로운 Package 이름과 버전 릴리스 입력, 새로운 설치 구조 변경
 gridwiz-1.0.0 디렉터리를 새로운 Package 이름과 버전으로 변경
- 
+
 #### gridwiz.spec
 
 ```
@@ -103,13 +103,8 @@ spec 파일 에서 변경된 경로와 동일하게 변경
 rm -rf /usr/local/bin/config
 rm -rf /usr/local/gridwiz
 rm -rf ~/rpmbuild
-<<<<<<< HEAD
 rm -rf ~/rpmbuild_debian
 ```
 spec 파일 에서 변경된 경로와 동일하게 변경
-=======
-```
-패키시 삭제시 생성된 디렉터리를 삭제해주는 부분
->>>>>>> origin/master
 
 Q) ghjf1278@naver.com 
