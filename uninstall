@@ -3,11 +3,41 @@
 osId=$(lsb_release -i)
 osId=$(echo $osId | cut -d: -f2)
 
+defaultName=gridwiz
+defaultVersion=1.0.0
+defaultRelease=1
+
+echo "### Rpm Package Config"
+echo -n "Package specFile Name(default : $defaultName) : "
+read packageName
+
+if [ -z $packageName ]
+then
+packageName=$defaultName
+fi
+
+
+echo -n "Package specFile Version(default : $defaultVersion) : "
+read packageVersion
+
+if [ -z $packageVersion ]
+then
+packageVersion=$defaultVersion
+fi
+
+echo -n "Pacakge specFile Release(default : $defaultRelease) : "
+read packageRelease
+
+if [ -z $packageRelease ]
+then
+packageRelese=$defaultRelease
+fi
+
 if [ $osId = CentOS ]
 then
-path=$(rpm -qa gridwiz)
+path=$(rpm -qa $packageName)
 else
-path=$(dpkg --get-selections | grep gridwiz)
+path=$(dpkg --get-selections | grep $packageName)
 path=${path%" "}
 fi
 

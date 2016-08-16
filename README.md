@@ -3,7 +3,8 @@
 ### 1. 구현 환경
 * centOs 6.8
 * ubuntu 16.04
-* centos, ubuntu 에서 패키지 생성 및 설치 
+* centos, ubuntu 에서 패키지 생성 및 설치
+* rpmbuild, lsb_release 필요 
 
 ### 2. 파일, 디렉터리 설명
 * gridwiz.spec : RPM Package 생성을 위해 사용되는 spec 파일
@@ -52,10 +53,19 @@ path=$(rpm -qa gridwiz)
 defaultName=gridwiz
 ```
 
-### 6. Package 설치 구조 변경
-#### gridwiz.spec 
+### 6. 새로운 Package 생성 및 설치 구조 변경
+gridwiz.spec 에서 새로운 Package 이름과 버전 릴리스 입력, 새로운 설치 구조 변경
+gridwiz-1.0.0 디렉터리를 새로운 Package 이름과 버전으로 변경
+
+#### gridwiz.spec
 
 ```
+Name: gridwiz
+
+Version: 1.0.0
+
+Release: 1
+
 mkdir -p $RPM_BUILD_ROOT/usr/local/bin
 mkdir -p $RPM_BUILD_ROOT/usr/local/gridwiz
 mkdir -p $RPM_BUILD_ROOT/usr/local/gridwiz/bin
@@ -84,6 +94,16 @@ mkdir -p /usr/local/gridwiz
 mkdir -p /usr/local/gridwiz/bin
 mkdir -p /usr/local/gridwiz/log
 mkdir -p /usr/local/gridwiz/config
+```
+spec 파일 에서 변경된 경로와 동일하게 변경
+
+#### uninstall
+
+```
+rm -rf /usr/local/bin/config
+rm -rf /usr/local/gridwiz
+rm -rf ~/rpmbuild
+rm -rf ~/rpmbuild_debian
 ```
 spec 파일 에서 변경된 경로와 동일하게 변경
 
